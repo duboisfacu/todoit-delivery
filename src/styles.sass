@@ -1,1 +1,61 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap')
+$primary: #ff5100
+$info: #FFFFFF
+$danger: #5e4235
+$warning: #582c25
+
+@import '~bootstrap/scss/bootstrap.scss'
+
+body, html
+    padding: 0
+    margin: 0
+    font-family: 'Poppins light', sans-serif
+    height: 100%
+    background-color: $primary
+    background: linear-gradient(90deg, #ff5100 0%, #FD611A  35%, #ffc400  100%)
+
+    .title
+        font-size: 2rem
+        @include media-breakpoint-up(sm) 
+            font-size: 5.4vw
+        @include media-breakpoint-up(md) 
+            font-size: 5vw
+        @include media-breakpoint-up(lg) 
+            font-size: 4vw
+    .big-text
+        font-size: 1rem
+        @include media-breakpoint-up(sm) 
+            font-size: 2.6vw
+        @include media-breakpoint-up(md) 
+            font-size: 2.5vw
+        @include media-breakpoint-up(lg) 
+            font-size: 2vw
+    .img-responsive
+            width: 75vw 
+            float: right
+            @include media-breakpoint-up(sm) 
+                width: 32vw
+            @include media-breakpoint-up(md) 
+                width: 24vw
+            @include media-breakpoint-up(lg) 
+                width: 25vw
+
+    .a-back
+        cursor: pointer
+.openbar
+    position: absolute
+    border-radius: 50px
+    border: none
+    width: 50px
+    height: 50px
+    left: 20px
+    top: 20px
+
+.ng-sidebar
+    background-color: $info
+    color: $primary
+    width: 260px
+    height: 100%
+
+
+

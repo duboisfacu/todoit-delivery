@@ -1,0 +1,51 @@
+<div class="container">
+
+    <div class="card shadow" *ngFor="let object of travels; let s=index">
+      <div class="row"
+        *ngIf="{a: ((object['travelEquipmentDTOs'][object['travelEquipmentDTOs'].length -1]['operationDate'].substring(0, 4) - year) + (object['travelEquipmentDTOs'][object['travelEquipmentDTOs'].length -1]['operationDate'].substring(5, 7) - month ) * 30 + (object['travelEquipmentDTOs'][object['travelEquipmentDTOs'].length -1]['operationDate'].substring(8, 10) - day)) * -1}; let vari">
+        <div class="col-sm">
+          <div class=dat>
+  
+            <p class="date">
+  
+              {{
+                vari.a > 1 ? 'hace ' + vari.a + ' días'
+                : vari.a < 1 ? 'hoy'
+                : 'hace ' + vari.a + ' día'
+            }}
+            </p>
+            <p class="name ">{{s}}
+              {{object['travelEquipmentDTOs'][object['travelEquipmentDTOs'].length -1]['equipment']['cliente']['fullName']}}
+            </p>
+            <!-- <img class="map" src="../assets/map.png"> -->
+  
+          </div>
+  
+  
+          <p class="equipment">
+            {{object['travelEquipmentDTOs'][object['travelEquipmentDTOs'].length -1]['equipment']['mark']}}
+            <span>
+  
+              {{object['travelEquipmentDTOs'][object['travelEquipmentDTOs'].length -1]['equipment']['model']}}
+            </span>
+  
+          </p>
+          <p class="fixed fw-bold">
+            {{ object['lastStatusTravel'] === 1 || object['lastStatusTravel'] === 2 ? '(En posesión del cliente)' 
+            :  object['lastStatusTravel'] === 3 ? '(En tu posesión)' 
+            : object['lastStatusTravel'] === 5 || object['lastStatusTravel'] === 6 ? '(Reparado en local)' 
+            : object['lastStatusTravel'] === 7 ? '(En tu posesión)' 
+            : ''}}</p>
+            <!-- : object['lastStatusTravel'] === 8 ? '(Entregado al cliente)'  -->
+  
+          <p class="address">
+            <!-- <img width="20px" class="img-responsive2" src="../assets/pin.svg"> -->
+  
+            {{object['travelEquipmentDTOs'][object['travelEquipmentDTOs'].length -1]['equipment']['cliente']['address']}}
+          </p>
+        </div>
+  
+  
+      </div>
+    </div>
+  </div>
