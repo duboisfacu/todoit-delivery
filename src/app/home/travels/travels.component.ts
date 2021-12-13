@@ -3,6 +3,8 @@ import { forkJoin } from 'rxjs';
 import { TravelsService } from '../services/travels.service';
 import { Travel } from '../model/travel';
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-travels',
   templateUrl: './travels.component.html',
@@ -10,6 +12,8 @@ import { Travel } from '../model/travel';
 })
 export class TravelsComponent implements OnInit {
 
+  public loading = true
+  public haveTravels = true
   public travels!:any
   public travels2!:any
   public myTravels!:any
@@ -21,6 +25,7 @@ export class TravelsComponent implements OnInit {
   constructor(private tr: TravelsService) { }
 
   onClick=(object: any)=>{
+
     let travelId = object['travelEquipmentDTOs'][object['travelEquipmentDTOs'].length - 1]['equipment']['id']
     // let previousStatus: number = object['travelEquipmentDTOs'][object['travelEquipmentDTOs'].length - 1]['statusTravel']
     
@@ -47,8 +52,29 @@ export class TravelsComponent implements OnInit {
     console.log(travelId, statusTravel, userOperation, cadeteId, isReasigned)
     this.tr.postTravel(travelId, statusTravel, userOperation,cadeteId,isReasigned).subscribe(resp => {
       console.log(resp)
+      Swal.fire({
+        title: 'Aceptado correctamente',
+        icon: 'success',
+        confirmButtonText: 'Continuar',
+        confirmButtonColor: '#FD611A'
+      })
       this.loadTravels()
+    }, error =>{
+      error.status ===403 ? 
+        Swal.fire({
+          title: 'Ya has aceptado el máximo de viajes disponibles.',
+          icon: 'error',
+          confirmButtonText: 'Continuar',
+          confirmButtonColor: '#FD611A'
+        })
       
+      :       
+      Swal.fire({
+        title: 'Error inesperado, intenta nuevamente',
+        icon: 'error',
+        confirmButtonText: 'Continuar',
+        confirmButtonColor: '#FD611A'
+      })
     })
   }
 
@@ -60,11 +86,14 @@ export class TravelsComponent implements OnInit {
     .subscribe(
       results => {
       this.travels = [...results[0], ...results[1] ]
+      this.loading = false
       this.travels.sort(function(a:Travel,b:Travel){
         return Date.parse(a.travelEquipmentDTOs[a.travelEquipmentDTOs.length -1].operationDate) - Date.parse(b.travelEquipmentDTOs[b.travelEquipmentDTOs.length -1].operationDate)
       })
 
       console.log(this.travels)
+      this.haveTravels = this.travels.length > 0 ? true : false
+      console.log(this.haveTravels)
 
     });
   }

@@ -6,6 +6,7 @@ import { MytravelComponent } from './mytravel/mytravel.component';
 import { TravelsComponent } from './travels/travels.component';
 
 const routes: Routes = [
+  {path: '', component: HomeComponent},
   {path: 'travels', component: TravelsComponent},
   {path: 'mytravels', component: MytravelComponent},
   {path: 'history', component: HistoryComponent}

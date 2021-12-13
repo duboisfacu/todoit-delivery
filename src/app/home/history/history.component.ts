@@ -9,6 +9,8 @@ import { Travel } from '../model/travel';
 })
 export class HistoryComponent implements OnInit {
 
+  public loading = true
+  public haveTravels = true
   public travels!: any
   public travels2!: any
   public myTravels!: any
@@ -28,6 +30,7 @@ export class HistoryComponent implements OnInit {
       .subscribe(
         results => {
           this.travels = [...results[0], ...results[1], ...results[2]]
+          this.loading = false
 
           this.travels = this.travels.filter(function (item: Travel) {
             if (item.travelEquipmentDTOs[item.travelEquipmentDTOs.length - 1].cadete) {

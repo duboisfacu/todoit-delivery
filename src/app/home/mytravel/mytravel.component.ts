@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { forkJoin } from 'rxjs';
 import { TravelsService } from '../services/travels.service';
 import { Travel } from '../model/travel';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-travels',
   templateUrl: './myTravel.component.html',
@@ -9,6 +11,8 @@ import { Travel } from '../model/travel';
 })
 export class MytravelComponent implements OnInit {
 
+  public haveTravels = true
+  public loading = true
   public travels!: any
   public travels2!: any
   public myTravels!: any
@@ -30,32 +34,103 @@ export class MytravelComponent implements OnInit {
     if (typeButton === "rejectOne") {
       this.tr.postTravel(travelId, 1, userOperation, cadeteId, true).subscribe(resp => {
         console.log(resp)
+        Swal.fire({
+          title: 'Rechazado correctamente',
+          icon: 'success',
+          confirmButtonText: 'Continuar',
+          confirmButtonColor: '#FD611A'
+        })
         this.loadTravels()
-      })
-    } else if (typeButton === "retired") {
+      }, error =>{
+        Swal.fire({
+          title: 'Error inesperado, intenta nuevamente',
+          icon: 'error',
+          confirmButtonText: 'Continuar',
+          confirmButtonColor: '#FD611A'
+        })
+      })} 
+      else if (typeButton === "retired") {
       this.tr.postTravel(travelId, 3, userOperation, cadeteId, isReasigned).subscribe(resp => {
         console.log(resp)
+        Swal.fire({
+          title: 'Has retirado el equipo correctamente',
+          icon: 'success',
+          confirmButtonText: 'Continuar',
+          confirmButtonColor: '#FD611A'
+        })
         this.loadTravels()
-      })
-    } else if (typeButton === "deliveredIt") {
+      }, error =>{
+        Swal.fire({
+          title: 'Error inesperado, intenta nuevamente',
+          icon: 'error',
+          confirmButtonText: 'Continuar',
+          confirmButtonColor: '#FD611A'
+        })
+      })} 
+      else if (typeButton === "deliveredIt") {
       this.tr.postTravel(travelId, 4, userOperation, cadeteId, isReasigned).subscribe(resp => {
         console.log(resp)
+        Swal.fire({
+          title: 'Has entregado el equipo a Todoit correctamente',
+          icon: 'success',
+          confirmButtonText: 'Continuar',
+          confirmButtonColor: '#FD611A'
+        })
         this.loadTravels()
       })
     } else if (typeButton === "obtained") {
       this.tr.postTravel(travelId, 7, userOperation, cadeteId, isReasigned).subscribe(resp => {
         console.log(resp)
+        Swal.fire({
+          title: 'Has retirado el equipo correctamente',
+          icon: 'success',
+          confirmButtonText: 'Continuar',
+          confirmButtonColor: '#FD611A'
+        })
         this.loadTravels()
+      }, error =>{
+        Swal.fire({
+          title: 'Error inesperado, intenta nuevamente',
+          icon: 'error',
+          confirmButtonText: 'Continuar',
+          confirmButtonColor: '#FD611A'
+        })
       })
     } else if (typeButton === "delivered") {
       this.tr.postTravel(travelId, 8, userOperation, cadeteId, isReasigned).subscribe(resp => {
         console.log(resp)
+        Swal.fire({
+          title: 'Has entregado el equipo a Todoit correctamente',
+          icon: 'success',
+          confirmButtonText: 'Continuar',
+          confirmButtonColor: '#FD611A'
+        })
         this.loadTravels()
+      }, error =>{
+        Swal.fire({
+          title: 'Error inesperado, intenta nuevamente',
+          icon: 'error',
+          confirmButtonText: 'Continuar',
+          confirmButtonColor: '#FD611A'
+        })
       })
     } else if (typeButton === "rejectFive") {
       this.tr.postTravel(travelId, 5, userOperation, cadeteId, true).subscribe(resp => {
         console.log(resp)
+        Swal.fire({
+          title: 'Rechazado correctamente',
+          icon: 'success',
+          confirmButtonText: 'Continuar',
+          confirmButtonColor: '#FD611A'
+        })
         this.loadTravels()
+      }, error =>{
+        Swal.fire({
+          title: 'Error inesperado, intenta nuevamente',
+          icon: 'error',
+          confirmButtonText: 'Continuar',
+          confirmButtonColor: '#FD611A'
+        })
       })}
   }
 
@@ -65,13 +140,12 @@ export class MytravelComponent implements OnInit {
     let three = this.tr.getTravel(3)
     let six = this.tr.getTravel(6)
     let seven = this.tr.getTravel(7)
-    // let eight = this.tr.getTravel(8)
 
     forkJoin([two, three, six, seven])
       .subscribe(
         results => {
           this.travels = [...results[0], ...results[1], ...results[2], ...results[3]]
-
+          this.loading = false
           this.travels = this.travels.filter(function (item: Travel) {
             if (item.travelEquipmentDTOs[item.travelEquipmentDTOs.length - 1].cadete) {
               return item.travelEquipmentDTOs[item.travelEquipmentDTOs.length - 1].cadete.id === JSON.parse(localStorage.getItem('token') || '{}');
@@ -84,6 +158,8 @@ export class MytravelComponent implements OnInit {
             return Date.parse(a.travelEquipmentDTOs[a.travelEquipmentDTOs.length - 1].operationDate) - Date.parse(b.travelEquipmentDTOs[b.travelEquipmentDTOs.length - 1].operationDate)
           })
           console.log(this.travels)
+          this.haveTravels = this.travels.length > 0 ? true : false
+          console.log(this.haveTravels)
 
         });
   }
@@ -93,14 +169,3 @@ export class MytravelComponent implements OnInit {
 
 }
 
-// 
-
-// this.myTravels = results['cadete']['id'] === JSON.parse(localStorage.getItem('token') || '{}')
-
-// 1 5 10
-// 2 6
-
-// 2 : cancelado, retirado
-// 3 : ya está en laboratori
-
-// 6 : cancelado, entregado

@@ -7,6 +7,7 @@ import { MytravelComponent } from './mytravel/mytravel.component';
 import { HistoryComponent } from './history/history.component';
 import { TravelsComponent } from './travels/travels.component';
 import { ButtonsComponent } from './components/buttons/buttons.component';
+import { ActionButtonsComponent } from './components/action-buttons/action-buttons.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ButtonsComponent } from './components/buttons/buttons.component';
     MytravelComponent,
     HistoryComponent,
     TravelsComponent,
-    ButtonsComponent
+    ButtonsComponent,
+    ActionButtonsComponent
   ],
   imports: [
     CommonModule,

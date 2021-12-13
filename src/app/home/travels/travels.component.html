@@ -1,4 +1,6 @@
-<div class="container text">
+<app-action-buttons></app-action-buttons>
+<div class="container">
+
 <div class="content">
   <img class="pageLogo" src="../assets/buttons/requestw.svg" />
   <h2 class="title">Viajes disponibles</h2>
@@ -19,7 +21,9 @@
           <p class="name ">
             {{object['travelEquipmentDTOs'][object['travelEquipmentDTOs'].length -1]['equipment']['cliente']['fullName']}}
           </p>
-          <img class="map" src="../assets/map.png">
+            <a href="https://www.google.com/maps/place/{{object['travelEquipmentDTOs'][object['travelEquipmentDTOs'].length -1]['equipment']['cliente']['address']}}/" target="_blank">
+              <img class="map" src="../assets/map.png">
+            </a>
 
         </div>
 
@@ -43,16 +47,15 @@
 
 
     </div>
-    <button (click)="onClick(
-        object)
-
-        
-        
-        
-        
-        " class="btn btn-primary">
+    <button (click)="onClick(object)" class="btn btn-primary">
       Aceptar viaje
     </button>
+  </div>
+  <div class="notfound" *ngIf="!haveTravels">
+    <p class="styled-p">No existen viajes para realizar.</p>
+  </div>
+  <div *ngIf="loading">
+    <img class="loading" width="40px" src="../../../assets/load.gif">
   </div>
 </div>
 </div>
