@@ -14,8 +14,6 @@ export class MytravelComponent implements OnInit {
   public haveTravels = true
   public loading = true
   public travels!: any
-  public travels2!: any
-  public myTravels!: any
   public utc = new Date().toISOString().slice(0, 10)
   public year = parseInt(this.utc.slice(0, 4))
   public month = parseInt(this.utc.slice(5, 7))
