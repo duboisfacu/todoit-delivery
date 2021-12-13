@@ -1,0 +1,59 @@
+<app-action-buttons></app-action-buttons>
+<div class="container">
+    <div class="content">
+      <img class="pageLogo" src="../assets/buttons/historyw.svg" />
+      <h2 class="title">Historial</h2>
+    <div class="card shadow" *ngFor="let object of travels; let s=index">
+      <div class="row"
+        *ngIf="{a: ((object['travelEquipmentDTOs'][object['travelEquipmentDTOs'].length -1]['operationDate'].substring(0, 4) - year) + (object['travelEquipmentDTOs'][object['travelEquipmentDTOs'].length -1]['operationDate'].substring(5, 7) - month ) * 30 + (object['travelEquipmentDTOs'][object['travelEquipmentDTOs'].length -1]['operationDate'].substring(8, 10) - day)) * -1}; let vari">
+        <div class="col-sm">
+          <div class=dat>
+  
+            <p class="date">
+  
+              {{
+                vari.a > 1 ? 'hace ' + vari.a + ' días'
+                : vari.a < 1 ? 'hoy'
+                : 'hace ' + vari.a + ' día'
+            }}
+            </p>
+            <p class="name ">
+              {{object['travelEquipmentDTOs'][object['travelEquipmentDTOs'].length -1]['equipment']['cliente']['fullName']}}
+            </p>
+            <a href="https://www.google.com/maps/place/{{object['travelEquipmentDTOs'][object['travelEquipmentDTOs'].length -1]['equipment']['cliente']['address']}}/" target="_blank">
+              <img class="map" src="../assets/map.png">
+            </a>
+  
+          </div>
+  
+  
+          <p class="equipment">
+            {{object['travelEquipmentDTOs'][object['travelEquipmentDTOs'].length -1]['equipment']['mark']}}
+            <span>
+  
+              {{object['travelEquipmentDTOs'][object['travelEquipmentDTOs'].length -1]['equipment']['model']}}
+            </span>
+  
+          </p>
+          <p class="fixed fw-bold statusText">
+            {{ object['lastStatusTravel'] === 4 ? 'Entregado a Todoit': 'Entregado a cliete'}}</p>
+            <!-- : object['lastStatusTravel'] === 8 ? '(Entregado al cliente)'  -->
+  
+          <p class="address">
+            <img width="20px" class="img-responsive2" src="../assets/pin.svg">
+  
+            {{object['travelEquipmentDTOs'][object['travelEquipmentDTOs'].length -1]['equipment']['cliente']['address']}}
+          </p>
+        </div>
+  
+  
+      </div>
+    </div>
+    <div class="notfound" *ngIf="!haveTravels">
+      <p class="styled-p">No tienes viajes pendientes.</p>
+    </div>
+    <div *ngIf="loading">
+      <img class="loading" width="40px" src="../../../assets/load.gif">
+    </div>
+  </div>
+  </div>

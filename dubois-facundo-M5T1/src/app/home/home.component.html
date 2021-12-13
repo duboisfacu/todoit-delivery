@@ -1,0 +1,80 @@
+<app-action-buttons></app-action-buttons>
+<!-- <p>home works!</p> -->
+<div class="content">
+
+
+<div class="icon">
+
+  <img src="../assets/buttons/logo.svg">
+</div>
+<h3 id="message" class="user">Hola {{currentClient}}!</h3>
+<div class="buttons">
+  <button class="m-button" (click)="navigate('travels')">
+    <div class="content">
+      <img class="map" src="../assets/buttons/requestw.svg">
+      <p>Viajes</p>
+    </div>
+  </button>
+  <button class="m-button" (click)="navigate('history')">
+    <div class="content">
+      <img class="map" src="../assets/buttons/historyw.svg">
+      <p>Historial</p>
+    </div>
+  </button>
+
+  <div *ngIf="haveTravels" class="recent">
+    <svg class="svgg"  viewBox="0 0 10 10">
+        <line class="point" x1="0" x2="10" y1="5" y2="5" />
+        <line class="point" x1="5" x2="5" y1="0" y2="10" />
+        </svg>
+        
+    <p class="pendient-title">Tu pendiente más reciente:</p>
+    <div class="card shadow">
+      <div class="row">
+        <div class="col-sm">
+          <div class=dat>
+
+            <p class="name ">
+              {{travels[travels.length -1]['travelEquipmentDTOs'][travels[travels.length -1]['travelEquipmentDTOs'].length -1]['equipment']['cliente']['fullName']}}
+            </p>
+            <a href="https://www.google.com/maps/place/{{travels[travels.length -1]['travelEquipmentDTOs'][travels[travels.length -1]['travelEquipmentDTOs'].length -1]['equipment']['cliente']['address']}}/"
+              target="_blank">
+              <img class="map" src="../assets/map.png">
+            </a>
+          </div>
+
+
+          <p class="equipment">
+            {{travels[travels.length -1]['travelEquipmentDTOs'][travels[travels.length -1]['travelEquipmentDTOs'].length -1]['equipment']['mark']}}
+            <span>
+
+              {{travels[travels.length -1]['travelEquipmentDTOs'][travels[travels.length -1]['travelEquipmentDTOs'].length -1]['equipment']['model']}}
+            </span>
+
+          </p>
+          <p class="fixed fw-bold">
+            {{ travels[travels.length -1]['lastStatusTravel'] === 1 || travels[travels.length -1]['lastStatusTravel'] === 2 ? '(En posesión del cliente)' 
+                  :  travels[travels.length -1]['lastStatusTravel'] === 3 ? '(En tu posesión)' 
+                  : travels[travels.length -1]['lastStatusTravel'] === 5 || travels[travels.length -1]['lastStatusTravel'] === 6 ? '(Reparado en local)' 
+                  : travels[travels.length -1]['lastStatusTravel'] === 7 ? '(En tu posesión)' 
+                  : ''}}</p>
+          <!-- : object['lastStatusTravel'] === 8 ? '(Entregado al cliente)'  -->
+
+          <p class="address">
+            <img width="20px" class="img-responsive2" src="../assets/pin.svg">
+
+            {{travels[travels.length -1]['travelEquipmentDTOs'][travels[travels.length -1]['travelEquipmentDTOs'].length -1]['equipment']['cliente']['address']}}
+          </p>
+        </div>
+
+
+      </div>
+      <!-- cuando es 2 -->
+      <button class="btn btn-primary" (click)="navigate('/mytravels')">Ir a mis viajes</button>
+
+
+
+    </div>
+  </div>
+
+</div></div>

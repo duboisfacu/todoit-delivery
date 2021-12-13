@@ -15,6 +15,8 @@ export class TravelsComponent implements OnInit {
   public loading = true
   public haveTravels = true
   public travels!:any
+  public travels2!:any
+  public myTravels!:any
   public utc = new Date().toISOString().slice(0, 10)
   public year = parseInt(this.utc.slice(0, 4))
   public month = parseInt(this.utc.slice(5, 7))
@@ -25,6 +27,23 @@ export class TravelsComponent implements OnInit {
   onClick=(object: any)=>{
 
     let travelId = object['travelEquipmentDTOs'][object['travelEquipmentDTOs'].length - 1]['equipment']['id']
+    // let previousStatus: number = object['travelEquipmentDTOs'][object['travelEquipmentDTOs'].length - 1]['statusTravel']
+    
+    // if (previousStatus === 10){
+    //   let value:number
+
+    //   for (let i = 2; i <= object['travelEquipmentDTOs'].length; i++){
+    //     if (object['travelEquipmentDTOs'][object['travelEquipmentDTOs'].length - i]['statusTravel'] === 10){
+    //       continue
+    //     }
+    //       value = object['travelEquipmentDTOs'][object['travelEquipmentDTOs'].length - i]['statusTravel'] === 1 
+    //       || object['travelEquipmentDTOs'][object['travelEquipmentDTOs'].length - i]['statusTravel'] === 2 ? 2 
+    //       : 6
+    //       previousStatus = value
+    //       break
+        
+    //   }}
+      
     let statusTravel = object['lastStatusTravel'] === 1 ? 2 : 6
 
     let userOperation= 2
@@ -41,8 +60,7 @@ export class TravelsComponent implements OnInit {
       })
       this.loadTravels()
     }, error =>{
-      console.log(error)
-      error.error === "Cadete supera los 3 viajes en estado entrega asignada o retiro asignado" ? 
+      error.status ===403 ? 
         Swal.fire({
           title: 'Ya has aceptado el máximo de viajes disponibles.',
           icon: 'error',
